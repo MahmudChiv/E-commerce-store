@@ -1,4 +1,12 @@
-import { Table, Column, Model, DataType, PrimaryKey } from "sequelize-typescript";
+import {
+  Table,
+  Column,
+  Model,
+  DataType,
+  PrimaryKey,
+  HasMany
+} from "sequelize-typescript";
+import { ProductCart } from "./ProductCart";
 
 @Table
 export class User extends Model {
@@ -14,7 +22,7 @@ export class User extends Model {
     allowNull: true,
   })
   firstName!: string;
-  
+
   @Column({
     type: DataType.STRING,
     allowNull: true,
@@ -33,4 +41,7 @@ export class User extends Model {
     allowNull: true,
   })
   password!: string;
+
+  @HasMany(() => ProductCart)
+  productCarts!: ProductCart[];
 }

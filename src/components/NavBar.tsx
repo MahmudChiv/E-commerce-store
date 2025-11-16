@@ -1,8 +1,12 @@
-import { Form, Button, Container, Navbar } from "react-bootstrap";
+import { Form, Button, Container, Navbar, NavDropdown } from "react-bootstrap";
 import { Cart, PersonCircle } from "react-bootstrap-icons";
-
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "./AuthContext";
 
 const NavBar = () => {
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
+
   return (
     <Navbar expand="lg" className="bg-body-tertiary w-full" sticky="top">
       <Container fluid>
@@ -19,8 +23,32 @@ const NavBar = () => {
             <Button variant="outline-success">Search</Button>
           </Form>
           <div>
-            <Cart size={30} className="mx-2 text-success" href="#" />
-            <PersonCircle size={30} className="mx-2 text-success" href="#" />
+            {user ? (
+              <NavDropdown
+                title={<PersonCircle size={30} className="mx-2 text-success" />}
+                id="basic-nav-dropdown"
+                align="end"
+              >
+                <NavDropdown.Item disabled>
+                  {user.firstName && user.lastName
+                    ? `Welcome, ${user.firstName} ${user.lastName}`
+                    : `Signed in as: ${user.email}`}
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item onClick={() => navigate("/cart")}>
+                  <Cart size={20} className="me-2" />
+                  Cart
+                </NavDropdown.Item>
+                <NavDropdown.Item onClick={logout}>Logout</NavDropdown.Item>
+              </NavDropdown>
+            ) : (
+              <PersonCircle
+                size={30}
+                className="mx-2 text-success"
+                style={{ cursor: "pointer" }}
+                onClick={() => navigate("/signIn")}
+              />
+            )}
           </div>
         </Navbar.Collapse>
       </Container>

@@ -1,0 +1,27 @@
+body {
+    background: #090909d5;
+}
+
+.background-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.content-overlay {
+    position: relative;
+    z-index: 1;
+    color: white; /* Adjust text color for readability over video */
+    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay with 50% transparency */
+    height: 100%; /* Ensure overlay covers the entire section */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5rem; /* Adjust as needed to push content down from the top */
+    padding-bottom: 5rem; /* Adjust as needed to push content up from the bottom */
+}
